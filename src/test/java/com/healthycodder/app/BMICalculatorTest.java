@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class BMICalculatorTest {
 
@@ -34,10 +36,11 @@ public class BMICalculatorTest {
       + "Let's create an interface with the methods that represent scenarios that"
       + " we will be automating:";
 
-  @Test
-  public void testShouldTrueInCaseDietRecommended() {
+  @ParameterizedTest
+  @ValueSource(doubles = {89.0, 95.0, 110.0})
+  public void testShouldTrueInCaseDietRecommended(Double coderWeight) {
     // given
-    double weight = 89.0;
+    double weight = coderWeight;
     double height = 1.72;
 
     // when
