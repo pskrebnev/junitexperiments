@@ -1,5 +1,6 @@
 package com.healthycodder.app;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -165,6 +167,16 @@ public class BMICalculatorTest {
 
     // then
     Assertions.assertArrayEquals(expected, bmiScores);
+  }
+
+  @Test
+  public void testPerformance() {
+    // given
+    IntStream intStream = IntStream.rangeClosed(1, 2000);
+
+    // when
+    // then
+    Assertions.assertTimeout(Duration.ofMillis(2), () -> intStream.summaryStatistics().getSum());
   }
 
   private String cleanText(String str) {
