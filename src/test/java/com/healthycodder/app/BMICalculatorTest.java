@@ -8,7 +8,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -37,6 +42,26 @@ public class BMICalculatorTest {
       + "\n"
       + "Let's create an interface with the methods that represent scenarios that"
       + " we will be automating:";
+
+  @BeforeAll
+  public static void beforeAll() {
+    System.out.println("Before all unit tests");
+  }
+
+  @AfterAll
+  public static void afterAll() {
+    System.out.println("After all unit tests");
+  }
+
+  @BeforeEach
+  public void setUp() {
+    System.out.println("Before every test");
+  }
+
+  @AfterEach
+  public void afterTest() {
+    System.out.println("Unit test finished");
+  }
 
   @ParameterizedTest
   @ValueSource(doubles = {89.0, 95.0, 110.0})
@@ -126,7 +151,7 @@ public class BMICalculatorTest {
     );
   }
 
-  @Test
+  @RepeatedTest(5)
   public void shouldReturnCorrectBMIScoreWhenCodersListNotEmpty() {
     // given
     List<Coder> coders = new ArrayList<>();
@@ -147,7 +172,8 @@ public class BMICalculatorTest {
         .matcher(str)
         .replaceAll(" ")
         .toLowerCase()
-        .replaceAll(" +", " ");
+        .replaceAll(" +", " ")
+        .trim();
   }
 
   @Test
